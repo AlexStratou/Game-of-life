@@ -30,3 +30,31 @@ def pad_to_shape(arr: np.ndarray, new_shape: tuple):
     return padded_arr
 
 
+glider = np.array([
+    [0, 1, 0],
+    [0, 0, 1],
+    [1, 1, 1]
+])
+
+blinker = [[1, 1, 1]]
+
+
+toad = np.array([[0,1,1,1],
+                [1,1,1,0]])
+    
+
+beacon = np.array([[1, 1, 0, 0],
+                  [1, 1, 0, 0],
+                  [0, 0, 1, 1],
+                  [0, 0, 1, 1]])
+
+lwss = np.array([[1, 0, 0, 1, 0],
+                 [0, 0, 0, 0, 1],
+                 [1, 0, 0, 0, 1],
+                 [0, 1, 1, 1, 1]
+                 ]
+                )
+
+r_pentomino = np.array([[0, 1, 1],
+                        [1, 1, 0],
+                        [0, 1, 0]])
