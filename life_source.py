@@ -24,9 +24,10 @@ class Life:
         """
         Initializer function of the Life class.
 
-        Args: n_grid (int, optional): Grid parameter. The grid will be n_grid**2 in size. Defaults to 100. seed (int
-        | list | np.ndarray, optional): Initial condition. If provided with a specific array, the array will be
-        resized and used as the IC. Defaults to 42.
+        Args:
+            n_grid (int, optional): Grid parameter. The grid will be n_grid**2 in size. Defaults to 100.
+            seed (int | list | np.ndarray, optional): Initial condition. If provided with a specific array, the array
+            will be resized and used as the IC. Defaults to 42.
 
         Raises:
             ValueError: If the input is not an n_grid x n_grid array or an integer.
@@ -85,9 +86,9 @@ class Life:
             for j in range(self.current_gen.shape[1]):
                 NN = tmp[self.p(i - 1), self.p(j - 1)] + tmp[self.p(i - 1), self.p(j)] + tmp[
                     self.p(i - 1), self.p(j + 1)] \
-                    + tmp[self.p(i), self.p(j + 1)] + tmp[self.p(i), self.p(j - 1)] \
-                    + tmp[self.p(i + 1), self.p(j - 1)] + tmp[self.p(i + 1), self.p(j)] + tmp[
-                    self.p(i + 1), self.p(j + 1)]
+                     + tmp[self.p(i), self.p(j + 1)] + tmp[self.p(i), self.p(j - 1)] \
+                     + tmp[self.p(i + 1), self.p(j - 1)] + tmp[self.p(i + 1), self.p(j)] + tmp[
+                         self.p(i + 1), self.p(j + 1)]
                 if NN < 2 and tmp[i, j] == 1:
                     self.current_gen[i, j] = 0
                 elif NN <= 3 and tmp[i, j] == 1:
@@ -121,13 +122,14 @@ class Life:
             self.next_generation()
         print('Done!')
 
-    def animate(self, save: bool = False, name: str = None) -> animation.FuncAnimation:
+    def animate(self, save: bool = False, name: str = None, **kwargs) -> animation.FuncAnimation:
         """
         Animate the history of the simulation.
 
         Args:
             save (bool, optional): Save option for the animation. Defaults to False.
             name (str, optional): Name of the saved animation. Defaults to None.
+            **kwargs: Keyword arguments for animation.FFMpegWriter
 
         Returns:
            animation.FuncAnimation: The resulting animation.
@@ -139,7 +141,7 @@ class Life:
         lines = ax.imshow(self.history[0][0], cmap='binary')
 
         # Set up the function that will be called on each frame
-        def update(num: int):
+        def update(num: int) -> lines:
             # Update the data being plotted
             ax.set_title(
                 'Generation: ' + str(self.history[num][1]) + ' ,      Population: ' + str(self.history[num][2]))
@@ -147,13 +149,12 @@ class Life:
 
             return lines
 
-        # noinspection PyTypeChecker
         ani = animation.FuncAnimation(fig, update, frames=range(
-            len(self.history) - 1), interval=1, repeat=True, )
+            len(self.history) - 1), interval=20)
         print('Done!')
         if save:
             print('Saving...', end='')
-            writervideo = animation.FFMpegWriter(fps=10, bitrate=320)
+            writervideo = animation.FFMpegWriter(**kwargs)
             ani.save(name + '.mp4', writer=writervideo)
             print('Done!')
         return ani
