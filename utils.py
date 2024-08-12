@@ -22,6 +22,7 @@ def is_iter(arr: object) -> bool:
     """
 
     try:
+        # noinspection PyTypeChecker
         iter(arr)
     except:
         return False
@@ -72,29 +73,44 @@ def pidx(idx: int, max_idx: int) -> int:
         return idx - max_idx - 1
 
 
-glider = np.array([
-    [0, 1, 0],
-    [0, 0, 1],
-    [1, 1, 1]
-])
+class Seeds:
+    """A class containing various initial seeds"""
 
-blinker = [[1, 1, 1]]
+    # --------Periodic--------
+    blinker = [[1, 1, 1]]
 
-toad = np.array([[0, 1, 1, 1],
-                 [1, 1, 1, 0]])
+    toad = np.array([[0, 1, 1, 1],
+                     [1, 1, 1, 0]])
 
-beacon = np.array([[1, 1, 0, 0],
-                   [1, 1, 0, 0],
-                   [0, 0, 1, 1],
-                   [0, 0, 1, 1]])
+    beacon = np.array([[1, 1, 0, 0],
+                       [1, 1, 0, 0],
+                       [0, 0, 1, 1],
+                       [0, 0, 1, 1]])
 
-lwss = np.array([[1, 0, 0, 1, 0],
-                 [0, 0, 0, 0, 1],
-                 [1, 0, 0, 0, 1],
-                 [0, 1, 1, 1, 1]
-                 ]
-                )
+    # --------Spaceships--------
+    glider = np.array([
+        [0, 1, 0],
+        [0, 0, 1],
+        [1, 1, 1]
+    ])
 
-r_pentomino = np.array([[0, 1, 1],
-                        [1, 1, 0],
-                        [0, 1, 0]])
+    lwss = np.array([[1, 0, 0, 1, 0],  # Lightweight spaceship
+                     [0, 0, 0, 0, 1],
+                     [1, 0, 0, 0, 1],
+                     [0, 1, 1, 1, 1]
+                     ]
+                    )
+
+    # --------Methuselahs--------
+    r_pentomino = np.array([[0, 1, 1],
+                            [1, 1, 0],
+                            [0, 1, 0]])
+
+    die_hard = np.array([[0, 0, 0, 0, 0, 0, 1, 0],
+                         [1, 1, 0, 0, 0, 0, 0, 0],
+                         [0, 1, 0, 0, 0, 1, 1, 1]])
+
+    acorn = np.array([[0, 1, 0, 0, 0, 0, 0],
+                      [0, 0, 0, 1, 0, 0, 0],
+                      [1, 1, 0, 0, 1, 1, 1]
+                      ])
